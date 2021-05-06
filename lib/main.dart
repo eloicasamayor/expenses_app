@@ -25,16 +25,18 @@ class MyHomePage extends StatelessWidget {
         title: Text('Flutter App'),
       ),
       body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Card(
-              child: Text('CHART!'),
-              elevation: 5,
-              color: Colors.blue,
-            ),
-            UserTransactions(),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Card(
+                child: Text('CHART!'),
+                elevation: 5,
+                color: Colors.blue,
+              ),
+              UserTransactions(),
+            ],
+          ),
         ),
       ),
     );
