@@ -1,6 +1,11 @@
-import './widgets/user_transactions.dart';
+import 'package:expenses_app/widgets/new_transaction.dart';
+import 'package:expenses_app/widgets/transaction_list.dart';
 
+import './widgets/transaction_list.dart';
+import './widgets/new_transaction.dart';
+import './widgets/chart.dart';
 import 'package:flutter/material.dart';
+import './models/transaction.dart';
 
 void main() => runApp(MyApp());
 
@@ -8,54 +13,124 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter App',
+      title: 'Personal Expenses',
+      theme: ThemeData(
+          primarySwatch: Colors.cyan,
+          accentColor: Colors.amber,
+          fontFamily: 'Quicksand',
+          textTheme: ThemeData.light().textTheme.copyWith(
+                headline6: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+          // y estos afectarán a todos los headline6 que no estén dentro del appbar
+          appBarTheme: AppBarTheme(
+            textTheme: ThemeData.light().textTheme.copyWith(
+                  headline6: TextStyle(
+                    fontFamily: 'OpenSans',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 26,
+                  ),
+                ),
+            //Para poder usar diferentes fuentes, tenemos que incluirlas en una carpeta y referenciarlas en pubspec.yaml
+            // copiamos el tema y sobreescribimos lo que queremos que sea diferente
+            //en este caso, afectará a todos los objetos marcados como "headline6" dentro de AppBar
+          )),
+      // (30)
+      // el Tema (theme) es un objeto que almacena los elementos de estilo para la aplicación.
+      // podemos acceder a él desde cualquier lugar, mediante "Theme.of(context)."
+      //Swatch es como una gama de colores. le decimos uno y flutter crea como una gama donde podemos escojer varios.
       home: MyHomePage(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  final List<Transaction> _userTransactions = [
+    // Transaction(
+    //   id: 't1',
+    //   title: 'New Shoes',
+    //   amount: 69.99,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: 't2',
+    //   title: 'Weekly groceries',
+    //   amount: 70.70,
+    //   date: DateTime.now(),
+    // ),
+  ];
+
+  List<Transaction> get _recentTransactions {
+    //where -> método de la clase List el cual ejecuta una función para cada elemento de la lista.
+    // si la función devuelve true, el elemento es incluido en la nueva lista devuelta, si devuelve falso, no se incluirá.
+    return _userTransactions.where((tx) {
+      return tx.date.isAfter(
+        DateTime.now().subtract(
+          Duration(days: 7),
+        ),
+      );
+    }).toList();
+    // Tenemos que añadir el ".toList()" porque el .where devuelve un iterable, no una lista. el .toList() convierte el iterable a una lista.
+  }
+
+  void _addNewTransaction(String txTitle, double txAmount) {
+    final newTx = Transaction(
+      id: DateTime.now().toString(),
+      title: txTitle,
+      amount: txAmount,
+      date: DateTime.now(),
+    );
+
+    setState(() {
+      _userTransactions.add(newTx);
+    });
+  }
+
+  void _startAddNewTransaction(BuildContext ctx) {
+    showModalBottomSheet(
+        context: ctx,
+        builder: (_) {
+          return NewTransaction(_addNewTransaction);
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter App'),
+        title: Text('Personal Expenses'),
+        actions: [
+          IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () => _startAddNewTransaction(context))
+        ],
       ),
       body: Center(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Card(
-                child: Text('CHART!'),
-                elevation: 5,
-                color: Colors.blue,
-              ),
-              UserTransactions(),
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Chart(_recentTransactions),
+              TransactionList(_userTransactions),
             ],
           ),
         ),
       ),
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.miniCenterFloat,
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () => _startAddNewTransaction(context),
+      ),
     );
   }
-  // (5) Alineacion Column / Row
-  // mainAxisAlignment: alineación respecto al eje principal (para Row es el eje vertical y para Column es el eje horizontal)
-  //
-  // Container vs Column/Row
-  // - El Container solo puede tener un hijo                   --- en row/column puede tener los hijos que quieras.
-  // - Container tiene muchas opciones de alinear y styling    --- en column /row solo puedes alinear, styling.
-  // - Container puede tener tamaño flexible, puedes manejarlo --- row tiene siempre la máxima anchura y column la máxima altura.
-  //
-  // (15) String Interpolation
-  // En vez de nombreVariable.toString(), podemos usar $nombreVariable
-  // Si queremos usar una expresion mas larga -> ${nombreObjeto.nombreParametro + 'otro string'}
-  //
-  // Para 'escapar cualquier carácter, usaremos la contrabarra seguida del símbolo: \$
-  //
-  // (19) textEditingController
-  // objeto que maneja la información introducida en un textField.
-  // tienes que crearlo como textEditingController y asignarlo "controller: nombreDelController"
 }
