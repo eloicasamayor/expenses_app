@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
 import '../models/transaction.dart';
 
 // (24)
@@ -37,44 +37,24 @@ class TransactionList extends StatelessWidget {
           : ListView.builder(
               itemBuilder: (ctx, index) {
                 return Card(
-                  child: Row(
-                    children: [
-                      Container(
-                          margin: EdgeInsets.symmetric(
-                            vertical: 10,
-                            horizontal: 15,
-                          ),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Theme.of(context).accentColor,
-                              width: 2,
-                            ),
-                          ),
+                  margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                  elevation: 4,
+                  child: ListTile(
+                    // ListTile: widget preparado para listas de elementos
+                    // tiene varios subelementos ya definidos, como leading, title, subtitle...
+                    leading: CircleAvatar(
+                      radius: 30,
+                      child: Container(
                           padding: EdgeInsets.all(10),
-                          child: Text(
-                            '\$${transactions[index].amount.toStringAsFixed(2)}',
-                            //.toStringAsFixed -> para convertir a string con un número definido de decimales.
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: Theme.of(context).primaryColorDark,
-                            ),
-                          )),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            transactions[index].title,
-                            style: Theme.of(context).textTheme.headline6,
-                          ),
-                          Text(
-                            transactions[index].date.toString(),
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColorDark),
-                          )
-                        ],
-                      ),
-                    ],
+                          child: FittedBox(
+                              child: Text('\$${transactions[index].amount}'))),
+                    ),
+                    title: Text(
+                      transactions[index].title,
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    subtitle: Text(
+                        DateFormat.yMMMd().format(transactions[index].date)),
                   ),
                 );
 
