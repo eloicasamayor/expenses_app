@@ -25,8 +25,8 @@ class Chart extends StatelessWidget {
           totalSum += recentTransactions[i].amount;
         }
       }
-      print(DateFormat.E().format(weekDay));
-      print(totalSum);
+      //print(DateFormat.E().format(weekDay));
+      //print(totalSum);
       // al dia de hoy le restamos (index) dias.
       return {
         'day': DateFormat.E().format(weekDay).substring(0, 1),

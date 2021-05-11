@@ -60,52 +60,60 @@ class _NewTransactionState extends State<NewTransaction> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Card(
-        child: Container(
-          margin: EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              TextField(
-                decoration: InputDecoration(labelText: 'Title'),
-                controller: _titleController,
-                onSubmitted: (_) => _submitData(),
-              ),
-              TextField(
-                decoration: InputDecoration(labelText: 'Amount'),
-                controller: _amountController,
-                keyboardType: TextInputType.number,
-                onSubmitted: (_) => _submitData(),
-                // uso de la barrabaja como argumento de una función -> "convention" para decir que obtenemos un argumento, pero no lo voy a usar.
-              ),
-              Container(
-                height: 70,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Text(_selectedDate == null
-                          ? 'No Date Chosen!'
-                          : 'Picked Date: ${DateFormat.yMd().format(_selectedDate)}'),
-                    ),
-                    TextButton(
-                      child: Text(
-                        'Choose Day',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      style: TextButton.styleFrom(
-                          primary: Theme.of(context).primaryColor),
-                      onPressed: _presentDatePicker,
-                    ),
-                  ],
+      child: SingleChildScrollView(
+        child: Card(
+          child: Container(
+            margin: EdgeInsets.only(
+              top: 10,
+              left: 10,
+              right: 10,
+              bottom: MediaQuery.of(context).viewInsets.bottom + 30,
+              //MediaQuery.of(context).viewInsets.bottom -> nos da el margen ocupado por el teclado.
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                TextField(
+                  decoration: InputDecoration(labelText: 'Title'),
+                  controller: _titleController,
+                  onSubmitted: (_) => _submitData(),
                 ),
-              ),
-              RaisedButton(
-                color: Theme.of(context).primaryColor,
-                textColor: Theme.of(context).textTheme.button.color,
-                child: Text('Add Transaction'),
-                onPressed: _submitData,
-              )
-            ],
+                TextField(
+                  decoration: InputDecoration(labelText: 'Amount'),
+                  controller: _amountController,
+                  keyboardType: TextInputType.number,
+                  onSubmitted: (_) => _submitData(),
+                  // uso de la barrabaja como argumento de una función -> "convention" para decir que obtenemos un argumento, pero no lo voy a usar.
+                ),
+                Container(
+                  height: 70,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(_selectedDate == null
+                            ? 'No Date Chosen!'
+                            : 'Picked Date: ${DateFormat.yMd().format(_selectedDate)}'),
+                      ),
+                      TextButton(
+                        child: Text(
+                          'Choose Day',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        style: TextButton.styleFrom(
+                            primary: Theme.of(context).primaryColor),
+                        onPressed: _presentDatePicker,
+                      ),
+                    ],
+                  ),
+                ),
+                RaisedButton(
+                  color: Theme.of(context).primaryColor,
+                  textColor: Theme.of(context).textTheme.button.color,
+                  child: Text('Add Transaction'),
+                  onPressed: _submitData,
+                )
+              ],
+            ),
           ),
         ),
       ),

@@ -16,10 +16,9 @@ class TransactionList extends StatelessWidget {
   TransactionList(this.transactions, this.deleteTransaction);
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 400,
-      child: transactions.isEmpty
-          ? Column(
+    return transactions.isEmpty
+        ? LayoutBuilder(builder: (context, constraints) {
+            return Column(
               children: [
                 Text(
                   'No Transactions added yet',
@@ -29,49 +28,62 @@ class TransactionList extends StatelessWidget {
                   height: 20,
                 ),
                 Container(
-                    height: 200,
+                    height: constraints.maxHeight * 0.6,
                     child: Image.asset('assets/images/waiting.png',
                         fit: BoxFit.cover)),
                 //Para poder usar imagenes, tenemos que incluirlas en una carpeta y referenciarlas en pubspec.yaml
               ],
-            )
-          : ListView.builder(
-              itemBuilder: (ctx, index) {
-                return Card(
-                  margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
-                  elevation: 4,
-                  child: ListTile(
-                    // ListTile: widget preparado para listas de elementos
-                    // tiene varios subelementos ya definidos, como leading, title, subtitle...
-                    leading: CircleAvatar(
-                      radius: 30,
-                      child: Container(
-                          padding: EdgeInsets.all(10),
-                          child: FittedBox(
-                              child: Text('\$${transactions[index].amount}'))),
-                    ),
-                    title: Text(
-                      transactions[index].title,
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                    subtitle: Text(
-                      DateFormat.yMMMd().format(transactions[index].date),
-                    ),
-                    trailing: IconButton(
-                      icon: Icon(Icons.delete),
-                      color: Theme.of(context).errorColor,
-                      onPressed: () =>
-                          deleteTransaction(transactions[index].id),
+            );
+          })
+        : ListView.builder(
+            itemBuilder: (ctx, index) {
+              return Card(
+                margin: EdgeInsets.symmetric(
+                  vertical: 8,
+                  horizontal: 5,
+                ),
+                elevation: 4,
+                child: ListTile(
+                  // ListTile: widget preparado para listas de elementos
+                  // tiene varios subelementos ya definidos, como leading, title, subtitle...
+                  leading: CircleAvatar(
+                    radius: 30,
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      child: FittedBox(
+                        child: Text('\$${transactions[index].amount}'),
+                      ),
                     ),
                   ),
-                );
+                  title: Text(
+                    transactions[index].title,
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  subtitle: Text(
+                    DateFormat.yMMMd().format(transactions[index].date),
+                  ),
+                  trailing: MediaQuery.of(context).size.width > 360
+                      ? FlatButton.icon(
+                          onPressed: () =>
+                              deleteTransaction(transactions[index].id),
+                          icon: Icon(Icons.delete),
+                          label: Text('Delete'),
+                          textColor: Theme.of(context).errorColor,
+                        )
+                      : IconButton(
+                          icon: Icon(Icons.delete),
+                          color: Theme.of(context).errorColor,
+                          onPressed: () =>
+                              deleteTransaction(transactions[index].id),
+                        ),
+                ),
+              );
 
-                // Es como un Column + SingleChildScrollView. Pero tiene que tener un padre con una height definida.
-                // ListView se puede usar como un widget normal, o bien llamar al ListView.builder()
-                // con ListView.builder(), solo se renderiza los items visibles. Es mejor para listas largas.
-              },
-              itemCount: transactions.length,
-            ),
-    );
+              // Es como un Column + SingleChildScrollView. Pero tiene que tener un padre con una height definida.
+              // ListView se puede usar como un widget normal, o bien llamar al ListView.builder()
+              // con ListView.builder(), solo se renderiza los items visibles. Es mejor para listas largas.
+            },
+            itemCount: transactions.length,
+          );
   }
 }
