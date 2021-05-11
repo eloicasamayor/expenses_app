@@ -215,7 +215,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButtonLocation:
           FloatingActionButtonLocation.miniCenterFloat,
       floatingActionButton: Platform.isIOS
-          // su estanis eb iOS, no construimos el FloatingActionButton.
+          // su estanis en iOS, no construimos el FloatingActionButton.
           ? Container()
           : FloatingActionButton(
               child: Icon(Icons.add),
