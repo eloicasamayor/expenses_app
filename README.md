@@ -1,23 +1,25 @@
 # Personal expenses app
 
-Aplicación para la administración de gastos semanales.
+Weekly spendings administration app.
 
-## Curso Flutter en Udemy
+## Following the Flutter Course on Udemy
 
-Este proyecto está hecho siguiendo la segunda lección del curso ["Flutter & Dart - The Complete Guide [2021 Edition]"](https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/)
+This app was developed following the second lection of the ["Flutter & Dart - The Complete Guide [2021 Edition]"](https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/)
 
-## Algunos contenidos (desordenados)
-- saber cuándo usar StateFulWidget o StateLessWidget
-- usar funciones y variables públicas o _privadas
-- Manejar inputs del usuario: textField, textEditingController, DatePicker, 
-- Formatear Fechas: DateFormat.yMd().format(_fecha)
-- iterar listas para construir widgets
-- Conectar widgets y compartir el State
-- ListView y Listview.builder()
-- usar la clase Future() y su método .then()
-- Construir diseño adaptativo mediante MediQuery
-- LayoutBuider() para pasar los constraints y así poder saber el size de un widget
-- Construir widgets en función de una condición
-- usar diferentes métodos de la clase List: .map(), .where(), .reversed()
-- importar y usar imágenes y diferentes fuentes
-- usar FittedBox() para impedir que un widget crezca si crece su contenido.
+Al the code is commented with the theory explained by the teacher.
+
+## What I've learned
+- When to use StatefulWidger or StatelessWidget
+- using public or private functions
+- Manage user inputs: textFields, textEditingController, DatePicker.
+- Format Datetime: DateFormat.yMd().format(_date)
+- iterate lists to build widgets
+- Connect widgets and share the State
+- Listview and Listview.builder()
+- Using the Future() class and the .then() method.
+- Build adaptatives UI thanks to MediaQuery
+- LayoutBuilder() to pass constraints so we can know the size of a widget
+- Build diferent widgets depending on a condition. (condition) ? do this : else do that.
+- Using different mothods of the List() class: .map(), .where(), .reversed().
+- Importing and using images and different fonts
+- Using FittedBox() to prevent a widget to grow if the content grows.
