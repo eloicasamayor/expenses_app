@@ -26,8 +26,34 @@ Al the code is commented with the theory explained by the teacher.
 
 ## Core Flutter Widgets
 ### App / Page Setup
-- MaterialApp / CuppertinoApp: It sets up the app
-- Scaffold / CuppertinoPageScaffold: It gives the background, it allow to use an appBar
+#### MaterialApp / CuppertinoApp
+#### Scaffold / CuppertinoPageScaffold
+It gives the background, it allow to use define:
+- appBar: it takes an AppBar object to define how the appbar should look like. We can define
+  - title: a text for the title
+  - actions: [] a list of widgets, tipically we add **IconButton()**
+- body: the body of the page
+- floatingActionButton: it takes a widget and it will float when we scroll. 
+- floatingActionButtonLocation: to define where the actionButton should be in the screen.
+```dart
+Scaffold(
+    appBar: AppBar(
+        title: Text('Flutter App'),
+        actions: [
+            IconButton(
+                icon: Icon(Icons.add), 
+                onPressed: () {},
+                )
+            ]
+    ),
+    body: //all the body...
+    floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {},
+    ),
+)
+```
 
 ### Layout
 #### Container
@@ -47,6 +73,8 @@ Al the code is commented with the theory explained by the teacher.
 - Always **takes full available height**.
 - It takes as much width as its children needs.
 - Alignment: for column, vertical is the mainAxis and hotizontal is the crossAxis. We can configure aligmnet with crossAxisAlignment and mainAxisAligment.
+#### Column
+- It gives it child the scrolling funcionality
 
 ### Row / Colum Children
 They allow us to configure how children they should use the space.
@@ -63,6 +91,19 @@ A pre-styled container with drop-shadow, padding, background color...
 ### Repeat Elements
 #### ListView
 A scrollable column
+- By default it has an infinite hight. So we need a wrapper (a parent) that defined a height.
+There are 2 ways of using it:
+- ListView(children[]): all widgets that are part of the listview are rendered. Bad performance for very long lists.
+- ListView.builder(): it only renders the widgets that are visible in the screen. It takes 2 arguments:
+  - itemBuilder: A function that will execute for every item in the list. It receives a context and an index of the item (int). The function must return the widget we want to build for each listView item.
+  - itemCount: how many items we want to have in the listView (list lenght)
+```dart
+ListView.builder(
+    itemBuilder: (ctx, index) {
+        return Card(child: Text(transactions[index].title));
+    },
+)
+```
 #### GridView
 A scrollable widget where items can be next to each other.
 #### ListTile
@@ -76,6 +117,26 @@ We can style it with the style argument that takes a TextStyle object. This obje
 
 ### User Input
 #### TextFied
+It has the keyboardType arguemnt, that takes a TextInputType object to define how the keyboard should look like.
+We could save the input value in every key stroke
+```dart
+String titleInput 
+// and in the build() method:
+TextField(
+    onChanged: (val){ // onChanged runs on every key stroke
+        titleInput = val; // we asign the value in the inputText to a variable
+    },
+)
+```
+We can use a TextEditingController and it does it automatically. We can access the saved text as a property in the controller.
+```dart
+final titleController = TextEditingController();
+// and in the build() method:
+TextField(
+    controller: titleController,
+)
+print(titleController.text);
+```
 #### Buttons
 #### GestureDetector: invisible widget 
 #### InkWell
@@ -117,3 +178,22 @@ To output special characters like 'cuotes' or $, we use the \ before using the c
 ```dart
 print('this \$ is a dolar sign.');
 ```
+
+## Showing a Model Bottom Sheet
+showModalBottomSheet() is a function provided by Flutter that allow us to show a modal in the bottom of the screen. It takes 2 arguments
+- context: the context
+- builder: a function that
+    - takes the context as argument (flutter provides it internally)
+    - returns the widget that will be inside the sheet
+```dart
+void startAddNewTransaction(BuildContext ctx) {
+    showModalBottomSheet(context: ctx, builder: (_) {
+        return WidgetInsideTheModal();
+    },);
+}
+```
+To close the modal bottom sheet, we can call **Navigator.of(context).pop()**
+
+## Accessing widget properties from the State class
+with "widget." we can access the properties of the connected widget class from inside the State class.
+
