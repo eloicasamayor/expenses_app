@@ -1,25 +1,10 @@
-# Personal expenses app
+# Personal expenses app: learning Flutter
 
-Weekly spendings administration app.
+This is a spendings administration app done following the ["Flutter & Dart - The Complete Guide [2021 Edition]"](https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/)
 
-## Following the Flutter Course on Udemy
+# Core Flutter Widgets
 
-This app was developed following the second lection of the ["Flutter & Dart - The Complete Guide [2021 Edition]"](https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/)
-
-Al the code is commented with the theory explained by the teacher.
-
-## What I've learned
-- When to use StatefulWidger or StatelessWidget
-- using public or private functions
-- Connect widgets and share the State
-- Build adaptatives UI thanks to MediaQuery
-- LayoutBuilder() to pass constraints so we can know the size of a widget
-- Build diferent widgets depending on a condition. (condition) ? do this : else do that.
-- Using different mothods of the List() class: .map(), .where(), .reversed().
-
-## Core Flutter Widgets
-
-### Scaffold / CuppertinoPageScaffold
+## Scaffold / CuppertinoPageScaffold
 It gives the background, it allow to use define:
 - appBar: it takes an AppBar object to define how the appbar should look like. We can define
   - title: a text for the title
@@ -47,18 +32,18 @@ Scaffold(
 )
 ```
 
-### Container
+## Container
 - A versatile widget that gives us a lot of styling and alignment options.
 - It takes exacly **one child** widget.
 - We can configure for example margin and padding (with an EdgeInsets object), decoration (with the BoxDecoration object where we can configure the border), child...
-### Row
+## Row
 - It allow us to position child widgets horizontally
 - It takes **unlimited child** widgets.
 - No styling options.
 - Always **takes full available width**.
 - Alignment: for Row, vertical is the crossAxis and hotizontal is the mainAxis. We can configure aligmnet with crossAxisAlignment and mainAxisAligment.
 - Every child has as width as it needs or as we asign it to have
-### Column
+## Column
 - It allow us to position child widgets vertically
 - It takes **unlimited child** widgets.
 - No styling options.
@@ -66,14 +51,14 @@ Scaffold(
 - It takes as much width as its children needs.
 - Alignment: for column, vertical is the mainAxis and hotizontal is the crossAxis. We can configure aligmnet with crossAxisAlignment and mainAxisAligment.
 - Every child has as height as it needs or as we asign it to have
-### SingleChildScrollView
+## SingleChildScrollView
 - It gives its children scrolling funcionality
-### SizedBox
+## SizedBox
 Like a Container but you can define no child. It's commonly used as a separator, providing space between elements.
-### FittedBox
+## FittedBox
 A widget To prevent a widget to grow if the content grows.
 
-### Flexible
+## Flexible
 It forces its childs to expand. We can configure it with with:
 - fit: 
   - FlexFit.tight -> to fill all the available space. If there were multiple Flexible widgets, they would share the space in equal parts.
@@ -92,16 +77,16 @@ Flexible(
     chld: Container(Text('B')),
 ),
 ```
-### Expanded
+## Expanded
 Is the same as Flexible but with the fit: FlexFit.tight. So it has no fit argument, it only accept the flex argumet.
 
-### Stack
+## Stack
 It allow us to have widgets on top of each other. 
-### Card 
+## Card 
 A pre-styled container with drop-shadow, padding, background color...
 - By default, it depends on the size of its child, unless it has a parent with a clearly defined width.
 
-### ListView
+## ListView
 A scrollable column
 - By default it has an infinite hight. So we need a wrapper (a parent) that defined a height.
 There are 2 ways of using it:
@@ -116,18 +101,19 @@ ListView.builder(
     },
 )
 ```
-### GridView
+## GridView
 A scrollable widget where items can be next to each other.
-### ListTile
+
+## ListTile
 A widget that comes with a default styling and layout, used a lot with ListView. It has some predefined arguments:
 - leading: a widget that is positioned at the beginning of the tile. In here is it often used the CircleAvatar() widget that provides a rounded element.
 - title
 - subtitle
 
-### Text
+## Text
 We can style it with the style argument that takes a **TextStyle** object. This object provides us a lot of ways to style a text: fontSize, fontWeight, color...
 
-### Image
+## Image
 The image class has many constructors depending on the source of the image
 - Image.asset() -> when the source is an asset in the project folder. For using an asset in the project it needs to be referenced in the pubspec.yaml under "assets"
 - Image.network() -> when the source is in a url (internet)
@@ -137,7 +123,7 @@ fit is a useful argument in the Image widget for formatting the image. BoxFit.co
 ```dart
 fit: BoxFit.cover
 ```
-### TextFied
+## TextFied
 It has the keyboardType arguemnt, that takes a TextInputType object to define how the keyboard should look like.
 We could save the input value in every key stroke
 ```dart
@@ -158,7 +144,7 @@ TextField(
 )
 print(titleController.text);
 ```
-### DatePicker
+## DatePicker
 showDatePicker is a function provided by Flutter that presents a Date Picker in the screen. I has some arguments:
 - context: the context
 - initialDate: the default DateTime
@@ -182,14 +168,14 @@ void _presentDatePicker(){
     });
 }
 ```
-
-## Formating DateTime
+## Other concepts learned
+### Formating DateTime
 We can use the [intl package](https://pub.dev/packages/intl) to format dates with the DateFormat method
 ```dart
 DateFormat('yyyy/MM/dd').format(dateVariable);  // --> 2021/05/11
 DateFormat.yMMMd.format(dateVariable);          // --> May 11, 2021
 ```
-## Mapping Data into Widgets
+### Mapping Data into Widgets
 - Goal: take a list of data and map it into a list of widgets
 - We use the "map" method, that is a method from any list object. we call it by typing the list followed by ".map()".
 - .map() gives us an iterable, so we have to call the .toList() method after .map()
@@ -205,7 +191,7 @@ Column(
     }).toList()
 )
 ```
-## String interpolation
+### String interpolation
 We can interpolate strings using the **"$" sign** followed by any variable inside a text between cuotes.
 ```dart
 print('my name is $name');
@@ -219,7 +205,7 @@ To output special characters like 'cuotes' or $, we use the \ before using the c
 print('this \$ is a dolar sign.');
 ```
 
-## Showing a Model Bottom Sheet
+### Showing a Model Bottom Sheet
 showModalBottomSheet() is a function provided by Flutter that allow us to show a modal in the bottom of the screen. It takes 2 arguments
 - context: the context
 - builder: a function that
@@ -234,7 +220,7 @@ void startAddNewTransaction(BuildContext ctx) {
 ```
 To close the modal bottom sheet, we can call **Navigator.of(context).pop()**
 
-## Accessing widget properties from the State class
+### Accessing widget properties from the State class
 with "widget." we can access the properties of the connected widget class from inside the State class. So we use the keyword widget followed by a dot and the name of the property we want to access.
 
 ## Themes
@@ -259,7 +245,8 @@ In a widget, we can access a theme config that way:
 Theme.of(context).primaryColor
 ```
 We can also define a theme for all the appbars with the AppBarTheme object and a textTheme to affect all texts.
-## Using Custom Fonts
+
+### Using Custom Fonts
 - The fonts assets must be in a folder in the project
 - We define the font in the pubspec.yaml file by setting the family and every asset with the path.
 ```yaml
@@ -273,3 +260,11 @@ We can also define a theme for all the appbars with the AppBarTheme object and a
 - Then, we can use the imported font in the Theme by using the fontFamily argument and setting the family name assigned in the pubspec.yaml. Or we could also use the fontFamily argument in any TextStyle object.
 
 
+# Other things I've learnt in this section:
+- When to use StatefulWidger or StatelessWidget
+- using public or private functions
+- Connect widgets and share the State
+- Build adaptatives UI thanks to MediaQuery
+- LayoutBuilder() to pass constraints so we can know the size of a widget
+- Build diferent widgets depending on a condition. (condition) ? do this : else do that.
+- Using different mothods of the List() class: .map(), .where(), .reversed().
