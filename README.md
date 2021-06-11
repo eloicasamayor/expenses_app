@@ -11,18 +11,13 @@ Al the code is commented with the theory explained by the teacher.
 ## What I've learned
 - When to use StatefulWidger or StatelessWidget
 - using public or private functions
-- Manage user inputs: textFields, textEditingController, DatePicker.
-- Format Datetime: DateFormat.yMd().format(_date)
-- iterate lists to build widgets
+- DatePicker.
 - Connect widgets and share the State
-- Listview and Listview.builder()
 - Using the Future() class and the .then() method.
 - Build adaptatives UI thanks to MediaQuery
 - LayoutBuilder() to pass constraints so we can know the size of a widget
 - Build diferent widgets depending on a condition. (condition) ? do this : else do that.
 - Using different mothods of the List() class: .map(), .where(), .reversed().
-- Importing and using images and different fonts
-- Using FittedBox() to prevent a widget to grow if the content grows.
 
 ## Core Flutter Widgets
 ### App / Page Setup
@@ -66,6 +61,7 @@ Scaffold(
 - No styling options.
 - Always **takes full available width**.
 - Alignment: for Row, vertical is the crossAxis and hotizontal is the mainAxis. We can configure aligmnet with crossAxisAlignment and mainAxisAligment.
+- Every child has as width as it needs or as we asign it to have
 #### Column
 - It allow us to position child widgets vertically
 - It takes **unlimited child** widgets.
@@ -73,17 +69,42 @@ Scaffold(
 - Always **takes full available height**.
 - It takes as much width as its children needs.
 - Alignment: for column, vertical is the mainAxis and hotizontal is the crossAxis. We can configure aligmnet with crossAxisAlignment and mainAxisAligment.
-#### Column
+- Every child has as height as it needs or as we asign it to have
+#### SingleChildScrollView
 - It gives it child the scrolling funcionality
+#### SizedBox
+It's like a Container that you can set height and width. The diference is that you can not define a child. It's commonly used as a separator, providing space between elements.
+#### FittedBox
+A widget To prevent a widget to grow if the content grows.
+
 
 ### Row / Colum Children
-They allow us to configure how children they should use the space.
+To configure how children should use the space.
 #### Flexible
+It forces its childs to expand. We can configure it with with:
+- fit: 
+  - FlexFit.tight -> to fill all the available space. If there were multiple Flexible widgets, they would share the space in equal parts.
+  - FlexFit.loose -> to fill only the space needed for the content to fit inside.
+- flex: it tells the flexible widget how much space to get relative to other flexible widgets. By default is 1.
+```dart
+// The available width is 3, so "A" takes 2/3 and B takes 1/3.
+Flexible(
+    flex: 2, 
+    fit: FlexFit.tight,
+    chld: Container(Text('A')),
+),
+Flexible(
+    flex: 1,
+    fit: FlexFit.tight,
+    chld: Container(Text('B')),
+),
+```
 #### Expanded
+Is the same as Flexible but with the fit: FlexFit.tight. So it has no fit argument, it only accept the flex argumet.
 
 ### Content Containers
 #### Stack
-It allow us to have widgets on top of each other
+It allow us to have widgets on top of each other. 
 #### Card 
 A pre-styled container with drop-shadow, padding, background color...
 - By default, it depends on the size of its child, unless it has a parent with a clearly defined width.
@@ -107,12 +128,24 @@ ListView.builder(
 #### GridView
 A scrollable widget where items can be next to each other.
 #### ListTile
-A widget that comes with a default styling and layout, used a lot with ListView
+A widget that comes with a default styling and layout, used a lot with ListView. It has some predefined arguments:
+- leading: a widget that is positioned at the beginning of the tile. In here is it often used the CircleAvatar() widget that provides a rounded element.
+- title
+- subtitle
 
 ### Content types
 #### Text
 We can style it with the style argument that takes a TextStyle object. This object provides us a lot of ways to style a text: fontSize, fontWeight, color...
 #### Image
+The image class has many constructors depending on the source of the image
+- Image.asset() -> when the source is an asset in the project folder. For using an asset in the project it needs to be referenced in the pubspec.yaml under "assets"
+- Image.network() -> when the source is in a url (internet)
+- Image.file() -> when the source is a file in the device, for example.
+
+fit is a useful argument in the Image widget for formatting the image. BoxFit.cover tells the image to respect the boundaries of the container and fit the image in there. For using it we need a container with defined width and height.
+```dart
+fit: BoxFit.cover
+```
 #### Icon
 
 ### User Input
@@ -195,5 +228,41 @@ void startAddNewTransaction(BuildContext ctx) {
 To close the modal bottom sheet, we can call **Navigator.of(context).pop()**
 
 ## Accessing widget properties from the State class
-with "widget." we can access the properties of the connected widget class from inside the State class.
+with "widget." we can access the properties of the connected widget class from inside the State class. So we use the keyword widget followed by a dot and the name of the property we want to access.
+
+## Themes
+In the MaterialApp we can define a Theme with the theme argument. In the Theme we can define different colors, fonts and styles that can be accessed by any widget in the app.
+<br>It takes a ThemeData object, and in here we can define many things:
+- primarySwatch: we define a color and it automatically different tones of that color
+- accentColor: a secundary color 
+
+```dart
+MaterialApp(
+    title: 'My title',
+    theme: ThemeData(
+        primarySwatch: Colors.purple,
+        accentColor: Colors.amber,
+        fontFamily: 'Quicksand',
+    ),
+    home: MyHomePage(),
+)
+```
+In a widget, we can access a theme config that way:
+```dart
+Theme.of(context).primaryColor
+```
+We can also define a theme for all the appbars with the AppBarTheme object and a textTheme to affect all texts.
+## Using Custom Fonts
+- The fonts assets must be in a folder in the project
+- We define the font in the pubspec.yaml file by setting the family and every asset with the path.
+```yaml
+    fonts:
+      - family: Schyler
+        fonts:
+          - asset: fonts/Schyler-Regular.ttf
+          - asset: fonts/Schyler-Italic.ttf
+            style: italic
+```
+- Then, we can use the imported font in the Theme by using the fontFamily argument and setting the family name assigned in the pubspec.yaml. Or we could also use the fontFamily argument in any TextStyle object.
+
 
