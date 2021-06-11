@@ -11,18 +11,15 @@ Al the code is commented with the theory explained by the teacher.
 ## What I've learned
 - When to use StatefulWidger or StatelessWidget
 - using public or private functions
-- DatePicker.
 - Connect widgets and share the State
-- Using the Future() class and the .then() method.
 - Build adaptatives UI thanks to MediaQuery
 - LayoutBuilder() to pass constraints so we can know the size of a widget
 - Build diferent widgets depending on a condition. (condition) ? do this : else do that.
 - Using different mothods of the List() class: .map(), .where(), .reversed().
 
 ## Core Flutter Widgets
-### App / Page Setup
-#### MaterialApp / CuppertinoApp
-#### Scaffold / CuppertinoPageScaffold
+
+### Scaffold / CuppertinoPageScaffold
 It gives the background, it allow to use define:
 - appBar: it takes an AppBar object to define how the appbar should look like. We can define
   - title: a text for the title
@@ -50,19 +47,18 @@ Scaffold(
 )
 ```
 
-### Layout
-#### Container
+### Container
 - A versatile widget that gives us a lot of styling and alignment options.
 - It takes exacly **one child** widget.
 - We can configure for example margin and padding (with an EdgeInsets object), decoration (with the BoxDecoration object where we can configure the border), child...
-#### Row
+### Row
 - It allow us to position child widgets horizontally
 - It takes **unlimited child** widgets.
 - No styling options.
 - Always **takes full available width**.
 - Alignment: for Row, vertical is the crossAxis and hotizontal is the mainAxis. We can configure aligmnet with crossAxisAlignment and mainAxisAligment.
 - Every child has as width as it needs or as we asign it to have
-#### Column
+### Column
 - It allow us to position child widgets vertically
 - It takes **unlimited child** widgets.
 - No styling options.
@@ -70,17 +66,14 @@ Scaffold(
 - It takes as much width as its children needs.
 - Alignment: for column, vertical is the mainAxis and hotizontal is the crossAxis. We can configure aligmnet with crossAxisAlignment and mainAxisAligment.
 - Every child has as height as it needs or as we asign it to have
-#### SingleChildScrollView
-- It gives it child the scrolling funcionality
-#### SizedBox
-It's like a Container that you can set height and width. The diference is that you can not define a child. It's commonly used as a separator, providing space between elements.
-#### FittedBox
+### SingleChildScrollView
+- It gives its children scrolling funcionality
+### SizedBox
+Like a Container but you can define no child. It's commonly used as a separator, providing space between elements.
+### FittedBox
 A widget To prevent a widget to grow if the content grows.
 
-
-### Row / Colum Children
-To configure how children should use the space.
-#### Flexible
+### Flexible
 It forces its childs to expand. We can configure it with with:
 - fit: 
   - FlexFit.tight -> to fill all the available space. If there were multiple Flexible widgets, they would share the space in equal parts.
@@ -99,18 +92,16 @@ Flexible(
     chld: Container(Text('B')),
 ),
 ```
-#### Expanded
+### Expanded
 Is the same as Flexible but with the fit: FlexFit.tight. So it has no fit argument, it only accept the flex argumet.
 
-### Content Containers
-#### Stack
+### Stack
 It allow us to have widgets on top of each other. 
-#### Card 
+### Card 
 A pre-styled container with drop-shadow, padding, background color...
 - By default, it depends on the size of its child, unless it has a parent with a clearly defined width.
 
-### Repeat Elements
-#### ListView
+### ListView
 A scrollable column
 - By default it has an infinite hight. So we need a wrapper (a parent) that defined a height.
 There are 2 ways of using it:
@@ -125,18 +116,18 @@ ListView.builder(
     },
 )
 ```
-#### GridView
+### GridView
 A scrollable widget where items can be next to each other.
-#### ListTile
+### ListTile
 A widget that comes with a default styling and layout, used a lot with ListView. It has some predefined arguments:
 - leading: a widget that is positioned at the beginning of the tile. In here is it often used the CircleAvatar() widget that provides a rounded element.
 - title
 - subtitle
 
-### Content types
-#### Text
-We can style it with the style argument that takes a TextStyle object. This object provides us a lot of ways to style a text: fontSize, fontWeight, color...
-#### Image
+### Text
+We can style it with the style argument that takes a **TextStyle** object. This object provides us a lot of ways to style a text: fontSize, fontWeight, color...
+
+### Image
 The image class has many constructors depending on the source of the image
 - Image.asset() -> when the source is an asset in the project folder. For using an asset in the project it needs to be referenced in the pubspec.yaml under "assets"
 - Image.network() -> when the source is in a url (internet)
@@ -146,10 +137,7 @@ fit is a useful argument in the Image widget for formatting the image. BoxFit.co
 ```dart
 fit: BoxFit.cover
 ```
-#### Icon
-
-### User Input
-#### TextFied
+### TextFied
 It has the keyboardType arguemnt, that takes a TextInputType object to define how the keyboard should look like.
 We could save the input value in every key stroke
 ```dart
@@ -170,10 +158,30 @@ TextField(
 )
 print(titleController.text);
 ```
-#### Buttons
-#### GestureDetector: invisible widget 
-#### InkWell
-It allow us to register a broad variety of user input listeners
+### DatePicker
+showDatePicker is a function provided by Flutter that presents a Date Picker in the screen. I has some arguments:
+- context: the context
+- initialDate: the default DateTime
+- firstDate: the minimum DateTime the user will be able to choose
+- lastDate: the maximum DateTime the user will be able to choose
+This function returns a Future<DateTime> so we can use the .then() to catch the date picked by the user
+```dart
+void _presentDatePicker(){
+    showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2019),
+        lastDate: DateTime.now(),
+    ).then((pickedDate){
+        if(pickedDate == null){
+            return null;
+        }
+        setState((){
+            _selectedDate = pickedDate;
+        });
+    });
+}
+```
 
 ## Formating DateTime
 We can use the [intl package](https://pub.dev/packages/intl) to format dates with the DateFormat method
@@ -197,7 +205,6 @@ Column(
     }).toList()
 )
 ```
-
 ## String interpolation
 We can interpolate strings using the **"$" sign** followed by any variable inside a text between cuotes.
 ```dart
