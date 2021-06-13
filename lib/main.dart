@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Personal Expenses',
       theme: ThemeData(
         primarySwatch: Colors.cyan,
@@ -214,13 +215,10 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButtonLocation:
           FloatingActionButtonLocation.miniCenterFloat,
-      floatingActionButton: Platform.isIOS
-          // su estanis en iOS, no construimos el FloatingActionButton.
-          ? Container()
-          : FloatingActionButton(
-              child: Icon(Icons.add),
-              onPressed: () => _startAddNewTransaction(context),
-            ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () => _startAddNewTransaction(context),
+      ),
     );
   }
 }

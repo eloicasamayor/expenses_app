@@ -29,7 +29,7 @@ class TransactionList extends StatelessWidget {
                 ),
                 Container(
                     height: constraints.maxHeight * 0.6,
-                    child: Image.asset('assets/images/waiting.png',
+                    child: Image.asset('assets/images/moon.png',
                         fit: BoxFit.cover)),
                 //Para poder usar imagenes, tenemos que incluirlas en una carpeta y referenciarlas en pubspec.yaml
               ],
