@@ -1,6 +1,7 @@
-# Personal expenses app: learning Flutter
+# Expenses_app
+> Learning Flutter: Chapter II
 
-This is a spendings administration app done following the ["Flutter & Dart - The Complete Guide [2021 Edition]"](https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/)
+This is a spendings administration app build following the ["Flutter & Dart Course by Maximilian Schwarzmüller"](https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/)
 
 ## Deployment
 You can see the deployed app on [GitHub Pages](https://eloicasamayor.github.io/expenses_app).
