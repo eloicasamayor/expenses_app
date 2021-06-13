@@ -2,8 +2,10 @@
 
 This is a spendings administration app done following the ["Flutter & Dart - The Complete Guide [2021 Edition]"](https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/)
 
-# Core Flutter Widgets
+## Deployment
+You can see the deployed app on [GitHub Pages](https://eloicasamayor.github.io/expenses_app).
 
+# Core Flutter Widgets
 ## Scaffold / CuppertinoPageScaffold
 It gives the background, it allow to use define:
 - appBar: it takes an AppBar object to define how the appbar should look like. We can define
