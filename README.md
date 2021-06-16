@@ -308,10 +308,23 @@ We can also define a theme for all the appbars with the AppBarTheme object and a
 ```
 - Then, we can use the imported font in the Theme by using the fontFamily argument and setting the family name assigned in the pubspec.yaml. Or we could also use the fontFamily argument in any TextStyle object.
 
-
-# Other things I've learnt in this section:
-- When to use StatefulWidger or StatelessWidget
-- Connect widgets and share the State
-- Build adaptatives UI thanks to MediaQuery
-- LayoutBuilder() to pass constraints so we can know the size of a widget
-- Build diferent widgets depending on a condition. (condition) ? do this : else do that.
+## MediaQueries
+MediaQuery is a class provided by the material flutter package. To use it we have to connect it to the context and it allow us to get information about the device:
+```dart
+var deviceHeight = MediaQuery.of(context).size.height
+```
+## Ternary operator
+We can use this kind of expresion to show one widget or another depending on a condition
+```dart
+_displayChartWidget ? Chart() : Text('No chart here');
+//condition         ? if true : if false
+```
+We can also include an if condition inside a list of widgets:
+```dart
+Column(children: [
+    ChildWidget(),
+    ChildWidget(),
+    if(_wantThatChild)
+        ConditionalWidget(),// this will be rendered only if the condition returns true
+])
+```
