@@ -171,13 +171,25 @@ void _presentDatePicker(){
     });
 }
 ```
-## Other concepts learned
+### DateTime ### 
+DateTime() is a built in object in Dart to express dates (a concreete moment). It has some methods on it, for example:
+- DateTime.now() returns the time of when it's executed.
+- .isBefore() returns if that date is before the compared one (bool).
+- .isAfter() returns if that date is after the compared one (bool).
+- .substract() returns a datetime which is the result of substracting a **duration**
+**Duration**
+Is another builtin object in Dart to express temporal spaces. To create a duration object, we can use the arguments 'days', 'hours', 'minutes', 'seconds', etc. followed by an int to indicate how many.
+
 ### Formating DateTime
 We can use the [intl package](https://pub.dev/packages/intl) to format dates with the DateFormat method
 ```dart
 DateFormat('yyyy/MM/dd').format(dateVariable);  // --> 2021/05/11
 DateFormat.yMMMd.format(dateVariable);          // --> May 11, 2021
 ```
+
+# Other learned concepts
+
+## Working with lists
 ### Mapping Data into Widgets
 - Goal: take a list of data and map it into a list of widgets
 - We use the "map" method, that is a method from any list object. we call it by typing the list followed by ".map()".
@@ -194,7 +206,38 @@ Column(
     }).toList()
 )
 ```
-### String interpolation
+### List.generate()
+*generate* is a method of the List class that helps us to generate a new list. It takes two parameters:
+- The lenght of the new list
+- A function that will be called for every item.
+  - This function will receive the index of the item.
+  - This fuction should return the value for the new list in that index
+```dart
+return List.generate(7, (index){
+    return index;
+    });
+// it will return [0, 1, 2, 3, 4, 5, 6]
+```
+### List.reversed
+*reversed* is a List property for reversing a list. It returns an iterable, so we need to add .toList() to return the same list in reverse order
+```dart
+var lista1 = [0,1,2,3,4,5];
+var listaReversed = lista1.reversed.toList(); // [5, 4, 3, 2, 1, 0]
+```
+### List.where()
+*where* is a method of the List class that also help iterate lists. 
+- It runs a function on every item on the list. This functions gets every item as argument
+- If that function returns true, the item is kept in the new list, otherwise is not included in that newly created list.
+It also returns an iterable, so we should call .toList() to convert again to a list.
+```dart
+ var list1 = [0,1,2,3,4,5];
+  var listPares = list1.where((element){
+    return element%2 ==0;
+  }).toList();
+  // it will return [0, 2, 4,]
+```
+
+## String interpolation
 We can interpolate strings using the **"$" sign** followed by any variable inside a text between cuotes.
 ```dart
 print('my name is $name');
@@ -208,7 +251,7 @@ To output special characters like 'cuotes' or $, we use the \ before using the c
 print('this \$ is a dolar sign.');
 ```
 
-### Showing a Model Bottom Sheet
+## Showing a Model Bottom Sheet
 showModalBottomSheet() is a function provided by Flutter that allow us to show a modal in the bottom of the screen. It takes 2 arguments
 - context: the context
 - builder: a function that
@@ -223,7 +266,7 @@ void startAddNewTransaction(BuildContext ctx) {
 ```
 To close the modal bottom sheet, we can call **Navigator.of(context).pop()**
 
-### Accessing widget properties from the State class
+## Accessing widget properties from the State class
 with "widget." we can access the properties of the connected widget class from inside the State class. So we use the keyword widget followed by a dot and the name of the property we want to access.
 
 ## Themes
@@ -249,7 +292,7 @@ Theme.of(context).primaryColor
 ```
 We can also define a theme for all the appbars with the AppBarTheme object and a textTheme to affect all texts.
 
-### Using Custom Fonts
+## Using Custom Fonts
 - The fonts assets must be in a folder in the project
 - We define the font in the pubspec.yaml file by setting the family and every asset with the path.
 ```yaml
@@ -265,7 +308,6 @@ We can also define a theme for all the appbars with the AppBarTheme object and a
 
 # Other things I've learnt in this section:
 - When to use StatefulWidger or StatelessWidget
-- using public or private functions
 - Connect widgets and share the State
 - Build adaptatives UI thanks to MediaQuery
 - LayoutBuilder() to pass constraints so we can know the size of a widget
