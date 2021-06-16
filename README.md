@@ -1,10 +1,15 @@
 # Expenses_app
 > Learning Flutter: Chapter II
 
-This is a spendings administration app build following the ["Flutter & Dart Course by Maximilian Schwarzmüller"](https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/)
+This is a spendings administration app build following the [Flutter & Dart Course by Maximilian Schwarzmüller](https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/)
 
 ## Deployment
 You can see the deployed app on [GitHub Pages](https://eloicasamayor.github.io/expenses_app).
+
+# Learning notes
+- [Core Flutter widgets](#core-flutter-widgets)
+- [Working with Lists](#working-with-lists)
+- [other concepts](#other-concepts)
 
 # Core Flutter Widgets
 ## Scaffold / CuppertinoPageScaffold
@@ -187,9 +192,7 @@ DateFormat('yyyy/MM/dd').format(dateVariable);  // --> 2021/05/11
 DateFormat.yMMMd.format(dateVariable);          // --> May 11, 2021
 ```
 
-# Other learned concepts
-
-## Working with lists
+# Working with lists
 ### Mapping Data into Widgets
 - Goal: take a list of data and map it into a list of widgets
 - We use the "map" method, that is a method from any list object. we call it by typing the list followed by ".map()".
@@ -236,7 +239,7 @@ It also returns an iterable, so we should call .toList() to convert again to a l
   }).toList();
   // it will return [0, 2, 4,]
 ```
-
+# Other concepts
 ## String interpolation
 We can interpolate strings using the **"$" sign** followed by any variable inside a text between cuotes.
 ```dart
@@ -312,4 +315,3 @@ We can also define a theme for all the appbars with the AppBarTheme object and a
 - Build adaptatives UI thanks to MediaQuery
 - LayoutBuilder() to pass constraints so we can know the size of a widget
 - Build diferent widgets depending on a condition. (condition) ? do this : else do that.
-- Using different mothods of the List() class: .map(), .where(), .reversed().
