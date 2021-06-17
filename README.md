@@ -239,6 +239,29 @@ It also returns an iterable, so we should call .toList() to convert again to a l
   }).toList();
   // it will return [0, 2, 4,]
 ```
+
+# Passing data up and down the widget tree
+
+## Send data from parent to a child widget
+If we want to pass data to a child widget in another file:
+- In the child widget 
+  - Create as many variables as we want to receive.
+  - Define a constructor in which it accept theese variables as parameters
+- In the parent widget
+  - When we use the widget, we pass the values it will need as parameters.
+
+## Send data from child to the parnent widget
+In the parent widget:
+- We create a function that accept as parameters the variables we want from the child widget
+- We use the widget and pass a pointer to that function as a parameter
+In the child widget:
+- We create a variable of type Function
+- We accept that variable as an argument in the constructor of the widget
+- We can call that function and pass the data as arguments. The parent widget will receive it in the function.
+
+## Accessing widget properties from the State class
+with "widget." we can access the properties of the connected widget class from inside the State class. So we use the keyword widget followed by a dot and the name of the property we want to access.
+
 # Other concepts
 ## String interpolation
 We can interpolate strings using the **"$" sign** followed by any variable inside a text between cuotes.
@@ -269,8 +292,6 @@ void startAddNewTransaction(BuildContext ctx) {
 ```
 To close the modal bottom sheet, we can call **Navigator.of(context).pop()**
 
-## Accessing widget properties from the State class
-with "widget." we can access the properties of the connected widget class from inside the State class. So we use the keyword widget followed by a dot and the name of the property we want to access.
 
 ## Themes
 In the MaterialApp we can define a Theme with the theme argument. In the Theme we can define different colors, fonts and styles that can be accessed by any widget in the app.
