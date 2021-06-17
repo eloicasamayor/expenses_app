@@ -244,20 +244,20 @@ It also returns an iterable, so we should call .toList() to convert again to a l
 
 ## Send data from parent to a child widget
 If we want to pass data to a child widget in another file:
-<br>In the child widget 
+- In the child widget 
   - Create as many variables as we want to receive.
   - Define a constructor in which it accept theese variables as parameters
-<br>In the parent widget
+- In the parent widget
   - When we use the widget, we pass the values it will need as parameters.
 
 ## Send data from child to the parent widget
-In the parent widget:
-- Create a function that accept as parameters the variables we want from the child widget
-- Use the widget and pass a pointer to that function as a parameter
-<br>In the child widget:
-- Create a variable of type Function
-- Accept that variable as an argument in the constructor of the widget
-- We can call that function and pass the data as arguments. The parent widget will receive it in the function.
+- In the parent widget:
+  - Create a function that accept as parameters the variables we want from the child widget
+  - Use the widget and pass a pointer to that function as a parameter
+- In the child widget:
+  - Create a variable of type Function
+  - Accept that variable as an argument in the constructor of the widget
+  - We can call that function and pass the data as arguments. The parent widget will receive it in the function.
 
 ## Accessing widget properties from the State class
 with "widget." we can access the properties of the connected widget class from inside the State class. So we use the keyword widget followed by a dot and the name of the property we want to access.
